@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@MapperScan("com.activiti.dao.mapper")
+@MapperScan("com.workflow.dao.mapper")
 @EnableScheduling
 public class Application {
 
