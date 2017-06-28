@@ -16,6 +16,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.SessionFactory;
+import org.activiti.engine.test.ActivitiRule;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.InitializingBean;
@@ -201,4 +202,13 @@ public class ActivitiConfig {
     	return processEngine.getProcessEngineConfiguration();
     }
     
+    /**
+     * 配置activiti的规则
+     * @param processEngine
+     * @return
+     */
+    @Bean
+    public ActivitiRule activitiRule(ProcessEngine processEngine){
+    	return new ActivitiRule(processEngine);
+    }
 }
