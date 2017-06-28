@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 对网关的条件判断，优先使用扩展的配置
- * 自定义排他网关
+ * 自定义排他网关(互斥网关)
  * @author xiams
  * @version 1.0
  * @date 2017-06-28 11:55:34
@@ -20,7 +19,7 @@ public class CustomExclusiveGateway extends ExclusiveGatewayActivityBehavior{
 	
 	@Override
 	protected void leave(ActivityExecution execution){
-		log.info("自定义网关ActivityBehaviorExtExclusiveGateway-------------");
+		log.info("自定义 排他网关-------------");
 		
 		//执行父类的写法，以使其还是可以支持旧式的在跳出线上写条件的做法  
 		super.leave(execution);
