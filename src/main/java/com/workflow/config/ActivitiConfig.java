@@ -26,6 +26,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.workflow.activiti.component.CustomGroupEntityManagerFactory;
 import com.workflow.activiti.component.CustomUserEntityManagerFactory;
+import com.workflow.activiti.component.ExtActivityBehaviorFactory;
 
 /**
  * activiti工作流配置
@@ -36,9 +37,11 @@ import com.workflow.activiti.component.CustomUserEntityManagerFactory;
 @Configuration
 public class ActivitiConfig {
 	@Autowired
-	private CustomUserEntityManagerFactory customUserEntityManagerFactory;
+	private CustomUserEntityManagerFactory customUserEntityManagerFactory; //自定义用户管理
 	@Autowired
-	private CustomGroupEntityManagerFactory customGroupEntityManagerFactory;
+	private CustomGroupEntityManagerFactory customGroupEntityManagerFactory; //自定义组管理
+	@Autowired
+	private ExtActivityBehaviorFactory activityBehaviorFactory;
 	
 	/**
 	 * 初始化 默认用户
@@ -75,8 +78,11 @@ public class ActivitiConfig {
     public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager){
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
         processEngineConfiguration.setDataSource(dataSource);
+        processEngineConfiguration.setTransactionManager(transactionManager);
         processEngineConfiguration.setDatabaseSchemaUpdate("true");
         processEngineConfiguration.setDatabaseType("mysql");
+        processEngineConfiguration.setJobExecutorActivate(true); //开启定时任务
+        processEngineConfiguration.setActivityBehaviorFactory(activityBehaviorFactory); //用于更改流程节点的执行行为
         
         /**
          * 整合自有的用户管理
@@ -89,7 +95,6 @@ public class ActivitiConfig {
         customSessionFactorys.add(customUserEntityManagerFactory);
         customSessionFactorys.add(customGroupEntityManagerFactory);
         processEngineConfiguration.setCustomSessionFactories(customSessionFactorys);
-        processEngineConfiguration.setTransactionManager(transactionManager);
 
         return processEngineConfiguration;
     }
