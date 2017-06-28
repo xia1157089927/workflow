@@ -95,7 +95,7 @@ public class ActivitiConfig {
         customSessionFactorys.add(customUserEntityManagerFactory);
         customSessionFactorys.add(customGroupEntityManagerFactory);
         processEngineConfiguration.setCustomSessionFactories(customSessionFactorys);
-
+        
         return processEngineConfiguration;
     }
 
