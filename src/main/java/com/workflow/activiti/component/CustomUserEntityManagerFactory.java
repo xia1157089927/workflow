@@ -6,6 +6,8 @@ import org.activiti.engine.impl.persistence.entity.UserIdentityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.workflow.activiti.identity.CustomUserEntityManager;
+
 @Component
 public class CustomUserEntityManagerFactory implements SessionFactory{
 	@Autowired

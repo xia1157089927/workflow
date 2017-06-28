@@ -6,6 +6,8 @@ import org.activiti.engine.impl.persistence.entity.GroupEntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.workflow.activiti.identity.CustomGroupEntityManager;
+
 /**
  * 自定义用户组
  * @author xiams
