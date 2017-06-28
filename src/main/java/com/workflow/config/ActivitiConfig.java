@@ -14,6 +14,7 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.activiti.engine.test.ActivitiRule;
@@ -28,6 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.workflow.activiti.component.CustomActivityBehaviorFactory;
 import com.workflow.activiti.component.CustomGroupEntityManagerFactory;
 import com.workflow.activiti.component.CustomUserEntityManagerFactory;
+import com.workflow.activiti.listener.GlobalEventListener;
 
 /**
  * activiti工作流配置
@@ -43,6 +45,9 @@ public class ActivitiConfig {
 	private CustomGroupEntityManagerFactory customGroupEntityManagerFactory; //自定义组管理
 	@Autowired
 	private CustomActivityBehaviorFactory activityBehaviorFactory; //根据需求 重写 DefaultActivityBehaviorFactory 相关方法
+	@Autowired
+	private GlobalEventListener globalEventListener;
+	
 	
 	/**
 	 * 初始化 默认用户
@@ -96,6 +101,13 @@ public class ActivitiConfig {
         customSessionFactorys.add(customUserEntityManagerFactory);
         customSessionFactorys.add(customGroupEntityManagerFactory);
         processEngineConfiguration.setCustomSessionFactories(customSessionFactorys);
+        
+        /**
+         * 监听全局事件
+         */
+        List<ActivitiEventListener> eventListeners = new ArrayList<>();
+        eventListeners.add(globalEventListener);
+        processEngineConfiguration.setEventListeners(eventListeners);
         
         return processEngineConfiguration;
     }

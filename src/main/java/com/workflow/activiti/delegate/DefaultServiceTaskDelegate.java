@@ -18,7 +18,7 @@ public class DefaultServiceTaskDelegate implements JavaDelegate {
 	
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
-		log.info("默认的serviceTask:DefaultServiceTaskDelegate:---> {} ", execution.getEventName());
+		log.info("默认的serviceTask:DefaultServiceTaskDelegate:---> {} ", execution.getCurrentActivityName() );
 	}
 
 }
