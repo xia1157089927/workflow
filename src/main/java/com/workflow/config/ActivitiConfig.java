@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.workflow.activiti.component.CustomActivityBehaviorFactory;
 import com.workflow.activiti.component.CustomGroupEntityManagerFactory;
 import com.workflow.activiti.component.CustomUserEntityManagerFactory;
-import com.workflow.activiti.component.ExtActivityBehaviorFactory;
 
 /**
  * activiti工作流配置
@@ -41,7 +41,7 @@ public class ActivitiConfig {
 	@Autowired
 	private CustomGroupEntityManagerFactory customGroupEntityManagerFactory; //自定义组管理
 	@Autowired
-	private ExtActivityBehaviorFactory activityBehaviorFactory;
+	private CustomActivityBehaviorFactory activityBehaviorFactory; //根据需求 重写 DefaultActivityBehaviorFactory 相关方法
 	
 	/**
 	 * 初始化 默认用户
