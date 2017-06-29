@@ -46,7 +46,7 @@ public class ActivitiConfig {
 	@Autowired
 	private CustomActivityBehaviorFactory activityBehaviorFactory; //根据需求 重写 DefaultActivityBehaviorFactory 相关方法
 	@Autowired
-	private GlobalEventListener globalEventListener;
+	private GlobalEventListener globalEventListener; //全局事件监听
 	
 	
 	/**
