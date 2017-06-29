@@ -223,4 +223,5 @@ public class ActivitiConfig {
     public ActivitiRule activitiRule(ProcessEngine processEngine){
     	return new ActivitiRule(processEngine);
     }
+    
 }

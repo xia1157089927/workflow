@@ -24,7 +24,7 @@ public class Apply2Test extends AbstractTestBase{
 	
 	@Rule
 	@Autowired
-	public ActivitiRule activitiSpringRule;
+	public ActivitiRule activitiRule;
 	
 	/**
 	 * 测试部署流程
