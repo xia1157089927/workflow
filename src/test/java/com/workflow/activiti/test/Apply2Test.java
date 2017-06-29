@@ -22,8 +22,8 @@ public class Apply2Test extends AbstractTestBase{
 	@Autowired
 	private TaskService taskService; // 注入任务服务类
 	
-	@Autowired
 	@Rule
+	@Autowired
 	public ActivitiRule activitiSpringRule;
 	
 	/**
