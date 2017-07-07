@@ -79,7 +79,7 @@ public class ActivitiConfig {
 	 * @param transactionManager
 	 * @return
 	 */
-    @Bean(name="processEngineConfiguration")
+    @Bean
     @Primary
     public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager){
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
@@ -119,7 +119,7 @@ public class ActivitiConfig {
      * @param processEngineConfiguration
      * @return
      */
-    @Bean(name="processEngine_def")
+    @Bean
     @Primary
     public ProcessEngineFactoryBean sprocessEngine(ProcessEngineConfiguration processEngineConfiguration){
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
@@ -227,6 +227,6 @@ public class ActivitiConfig {
     public ActivitiRule activitiRule(ProcessEngine processEngine){
     	return new ActivitiRule(processEngine);
     }
-    */
+     */
    
 }
