@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -22,9 +23,16 @@ public class Apply2Test extends AbstractTestBase{
 	@Autowired
 	private TaskService taskService; // 注入任务服务类
 	
-	@Rule
+	/**
+	 * 配置activiti的规则
+	 */
 	@Autowired
-	public ActivitiRule activitiRule;
+	private ProcessEngine processEngine;
+	@Rule
+	public ActivitiRule activitiRule (){
+		return new ActivitiRule(processEngine);
+	}  
+	/**activit  配置activiti的规则 end**/
 	
 	/**
 	 * 测试部署流程

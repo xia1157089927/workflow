@@ -217,16 +217,5 @@ public class ActivitiConfig {
     public ProcessEngineConfiguration processEngineConfiguration(ProcessEngine processEngine){
     	return processEngine.getProcessEngineConfiguration();
     }
-    
-    /**
-     * 配置activiti的规则
-     * @param processEngine
-     * @return
-     * 
-    @Bean
-    public ActivitiRule activitiRule(ProcessEngine processEngine){
-    	return new ActivitiRule(processEngine);
-    }
-     */
    
 }
