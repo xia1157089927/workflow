@@ -23,6 +23,7 @@ public class GlobalEventListener implements ActivitiEventListener{
 	  
 	 @Override  
 	 public boolean isFailOnException() {  
+		 log.info("isFailOnException type is ========>{}", "好像异常了"); 
 		 return false;  
 	 }  
 	  

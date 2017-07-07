@@ -43,7 +43,7 @@ public class Apply2Test extends AbstractTestBase{
 			String taskName = task.getName();
 			log.info("taskId: {}, assignee: {}, taskName:{} ", taskId, assignee, taskName);
 			Map<String, Object> value = new HashMap<>();
-			value.put("skip", 4);
+			value.put("skip", 5);
 			taskService.complete(taskId, value);
 		}
 		

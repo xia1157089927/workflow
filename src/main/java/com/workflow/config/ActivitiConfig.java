@@ -17,13 +17,13 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.SessionFactory;
-import org.activiti.engine.test.ActivitiRule;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.workflow.activiti.component.CustomActivityBehaviorFactory;
@@ -47,7 +47,6 @@ public class ActivitiConfig {
 	private CustomActivityBehaviorFactory activityBehaviorFactory; //根据需求 重写 DefaultActivityBehaviorFactory 相关方法
 	@Autowired
 	private GlobalEventListener globalEventListener; //全局事件监听
-	
 	
 	/**
 	 * 初始化 默认用户
@@ -80,7 +79,8 @@ public class ActivitiConfig {
 	 * @param transactionManager
 	 * @return
 	 */
-    @Bean
+    @Bean(name="processEngineConfiguration")
+    @Primary
     public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager){
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
         processEngineConfiguration.setDataSource(dataSource);
@@ -89,6 +89,9 @@ public class ActivitiConfig {
         processEngineConfiguration.setDatabaseType("mysql");
         processEngineConfiguration.setJobExecutorActivate(true); //开启定时任务
         processEngineConfiguration.setActivityBehaviorFactory(activityBehaviorFactory); //用于更改流程节点的执行行为
+        processEngineConfiguration.setCreateDiagramOnDeploy(true);//是否生成流程定义图片
+        processEngineConfiguration.setActivityFontName("宋体"); //生成流程图的字体不设置会乱码
+        processEngineConfiguration.setLabelFontName("宋体");
         
         /**
          * 整合自有的用户管理
@@ -108,7 +111,6 @@ public class ActivitiConfig {
         List<ActivitiEventListener> eventListeners = new ArrayList<>();
         eventListeners.add(globalEventListener);
         processEngineConfiguration.setEventListeners(eventListeners);
-        
         return processEngineConfiguration;
     }
 
@@ -117,10 +119,12 @@ public class ActivitiConfig {
      * @param processEngineConfiguration
      * @return
      */
-    @Bean
-    public ProcessEngineFactoryBean processEngine(ProcessEngineConfiguration processEngineConfiguration){
+    @Bean(name="processEngine_def")
+    @Primary
+    public ProcessEngineFactoryBean sprocessEngine(ProcessEngineConfiguration processEngineConfiguration){
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
-        processEngineFactoryBean.setProcessEngineConfiguration((ProcessEngineConfigurationImpl) processEngineConfiguration);
+        ProcessEngineConfigurationImpl processEngineConfigurationImpl = (ProcessEngineConfigurationImpl)processEngineConfiguration;
+        processEngineFactoryBean.setProcessEngineConfiguration(processEngineConfigurationImpl);
         return processEngineFactoryBean;
     }
     
@@ -131,7 +135,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="repositoryService")
     public RepositoryService repositoryService(ProcessEngine processEngine){
         return processEngine.getRepositoryService();
     }
@@ -143,7 +147,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="runtimeService")
     public RuntimeService runtimeService(ProcessEngine processEngine){
         return processEngine.getRuntimeService();
     }
@@ -155,7 +159,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="taskService")
     public TaskService taskService(ProcessEngine processEngine){
         return processEngine.getTaskService();
     }
@@ -166,7 +170,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="historyService")
     public HistoryService historyService(ProcessEngine processEngine){
         return processEngine.getHistoryService();
     }
@@ -177,7 +181,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="formService")
     public FormService formService(ProcessEngine processEngine){
         return processEngine.getFormService();
     }
@@ -188,7 +192,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="identityService")
     public IdentityService identityService(ProcessEngine processEngine){
         return processEngine.getIdentityService();
     }
@@ -199,7 +203,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="managementService")
     public ManagementService managementService(ProcessEngine processEngine){
         return processEngine.getManagementService();
     }
@@ -209,7 +213,7 @@ public class ActivitiConfig {
      * @param processEngine
      * @return
      */
-    @Bean
+    @Bean(name="processEngineConfiguration")
     public ProcessEngineConfiguration processEngineConfiguration(ProcessEngine processEngine){
     	return processEngine.getProcessEngineConfiguration();
     }
@@ -218,10 +222,11 @@ public class ActivitiConfig {
      * 配置activiti的规则
      * @param processEngine
      * @return
-     */
+     * 
     @Bean
     public ActivitiRule activitiRule(ProcessEngine processEngine){
     	return new ActivitiRule(processEngine);
     }
-    
+    */
+   
 }
