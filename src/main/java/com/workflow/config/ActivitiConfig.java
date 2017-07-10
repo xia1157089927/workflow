@@ -121,7 +121,7 @@ public class ActivitiConfig {
      */
     @Bean
     @Primary
-    public ProcessEngineFactoryBean sprocessEngine(ProcessEngineConfiguration processEngineConfiguration){
+    public ProcessEngineFactoryBean processEngine(ProcessEngineConfiguration processEngineConfiguration){
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
         ProcessEngineConfigurationImpl processEngineConfigurationImpl = (ProcessEngineConfigurationImpl)processEngineConfiguration;
         processEngineFactoryBean.setProcessEngineConfiguration(processEngineConfigurationImpl);
