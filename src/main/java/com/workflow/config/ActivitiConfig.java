@@ -75,6 +75,11 @@ public class ActivitiConfig {
 	
 	/**
 	 * 流程配置，与spring整合采用SpringProcessEngineConfiguration这个实现
+	 * 当单例Bean依赖多例Bean时，单例Bean只有一次初始化的机会，它的依赖关系只有在初始化阶段被设置，而它所依赖的多例Bean会不断更新产生新的Bean实例，
+     * 这将导致单例Bean所依赖的多例Bean得不到更新，每次都得到的是最开始时生成的Bean，这就违背了使用多例的初衷。 解决该问题有两种解决思路： 
+	 * 1.放弃依赖注入：主动向容器获取多例，可以实现ApplicationContextAware接口来获取ApplicationContext实例,通过ApplicationContext获取多例对象。 
+     * 2.利用方法注入：方法注入是让Spring容器重写Bean中的抽象方法，该方法返回多例，Spring通过CGLIb修改客户端的二进制代码来实现。 
+     * 
 	 * @param dataSource
 	 * @param transactionManager
 	 * @return
@@ -116,6 +121,12 @@ public class ActivitiConfig {
 
     /**
      * 流程引擎，与spring整合使用factoryBean
+     * 
+     * 当单例Bean依赖多例Bean时，单例Bean只有一次初始化的机会，它的依赖关系只有在初始化阶段被设置，而它所依赖的多例Bean会不断更新产生新的Bean实例，
+     * 这将导致单例Bean所依赖的多例Bean得不到更新，每次都得到的是最开始时生成的Bean，这就违背了使用多例的初衷。 解决该问题有两种解决思路： 
+	 * 1.放弃依赖注入：主动向容器获取多例，可以实现ApplicationContextAware接口来获取ApplicationContext实例,通过ApplicationContext获取多例对象。 
+     * 2.利用方法注入：方法注入是让Spring容器重写Bean中的抽象方法，该方法返回多例，Spring通过CGLIb修改客户端的二进制代码来实现。 
+     * 
      * @param processEngineConfiguration
      * @return
      */
