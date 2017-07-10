@@ -119,7 +119,7 @@ public class ActivitiConfig {
      * @param processEngineConfiguration
      * @return
      */
-    @Bean
+    @Bean(name="processEngine_") //根据首先注入该Bean
     @Primary
     public ProcessEngineFactoryBean processEngine(ProcessEngineConfiguration processEngineConfiguration){
         ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
